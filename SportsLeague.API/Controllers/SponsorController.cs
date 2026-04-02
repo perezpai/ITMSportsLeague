@@ -76,8 +76,8 @@ public class SponsorController : ControllerBase
     [HttpGet("{id}/tournaments")]
     public async Task<IActionResult> GetTournaments(int id)
     {
-        var tournaments = await _service.GetTournamentsBySponsorAsync(id);
-        return Ok(tournaments);
+        var relations = await _service.GetTournamentsBySponsorAsync(id);
+        return Ok(_mapper.Map<IEnumerable<TournamentSponsorResponseDTO>>(relations));
     }
 
     [HttpDelete("{id}/tournaments/{tournamentId}")]

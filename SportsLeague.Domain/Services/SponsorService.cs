@@ -1,17 +1,18 @@
 ﻿using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Repositories;
+using SportsLeague.Domain.Interfaces.Services;
 
 namespace SportsLeague.Domain.Services;
 
 public class SponsorService : ISponsorService
 {
     private readonly ISponsorRepository _repo;
-    private readonly IGenericRepository<TournamentSponsor> _tsRepo;
+    private readonly ITournamentSponsorRepository _tsRepo;
     private readonly IGenericRepository<Tournament> _tournamentRepo;
 
     public SponsorService(
         ISponsorRepository repo,
-        IGenericRepository<TournamentSponsor> tsRepo,
+        ITournamentSponsorRepository tsRepo,
         IGenericRepository<Tournament> tournamentRepo)
     {
         _repo = repo;
@@ -60,7 +61,6 @@ public class SponsorService : ISponsorService
         await _repo.DeleteAsync(id);
     }
 
-
     // ── RELACIÓN N:M ──
 
     public async Task AssignToTournamentAsync(int sponsorId, int tournamentId, decimal contractAmount)
@@ -74,9 +74,9 @@ public class SponsorService : ISponsorService
         if (contractAmount <= 0)
             throw new InvalidOperationException("Contract amount must be greater than 0");
 
-        var existing = await _tsRepo.GetAllAsync();
+        var existing = await _tsRepo.GetByIdsAsync(sponsorId, tournamentId);
 
-        if (existing.Any(x => x.SponsorId == sponsorId && x.TournamentId == tournamentId))
+        if (existing != null)
             throw new InvalidOperationException("Relationship already exists");
 
         var relation = new TournamentSponsor
@@ -95,20 +95,14 @@ public class SponsorService : ISponsorService
         if (!await _repo.ExistsAsync(sponsorId))
             throw new KeyNotFoundException("Sponsor not found");
 
-        var relations = await _tsRepo.GetAllAsync();
+        var relations = await _tsRepo.GetBySponsorIdAsync(sponsorId);
 
-        return relations
-            .Where(x => x.SponsorId == sponsorId)
-            .Select(x => x.Tournament)
-            .ToList();
+        return relations.Select(x => x.Tournament);
     }
 
     public async Task RemoveFromTournamentAsync(int sponsorId, int tournamentId)
     {
-        var relations = await _tsRepo.GetAllAsync();
-
-        var relation = relations
-            .FirstOrDefault(x => x.SponsorId == sponsorId && x.TournamentId == tournamentId);
+        var relation = await _tsRepo.GetByIdsAsync(sponsorId, tournamentId);
 
         if (relation == null)
             throw new KeyNotFoundException("Relation not found");
