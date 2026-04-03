@@ -67,7 +67,7 @@ public class SponsorController : ControllerBase
     // ── RELACIÓN N:M ──
 
     [HttpPost("{id}/tournaments")]
-    public async Task<IActionResult> AssignToTournament(int id, AssignSponsorDTO dto)
+    public async Task<IActionResult> AssignToTournament(int id, TournamentSponsorRequestDTO dto)
     {
         await _service.AssignToTournamentAsync(id, dto.TournamentId, dto.ContractAmount);
         return Ok(new { message = "Sponsor assigned to tournament successfully" });
