@@ -1,5 +1,6 @@
 ﻿using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Repositories;
+using SportsLeague.Domain.Interfaces.Services;
 
 namespace SportsLeague.Domain.Services;
 
@@ -18,8 +19,6 @@ public class SponsorService : ISponsorService
         _tsRepo = tsRepo;
         _tournamentRepo = tournamentRepo;
     }
-
-    // ── CRUD ──
 
     public async Task<IEnumerable<Sponsor>> GetAllAsync()
         => await _repo.GetAllAsync();
@@ -60,9 +59,7 @@ public class SponsorService : ISponsorService
         await _repo.DeleteAsync(id);
     }
 
-    // ── RELACIÓN N:M ──
-
-    public async Task AssignToTournamentAsync(int sponsorId, int tournamentId, decimal contractAmount)
+    public async Task<TournamentSponsor> AssignToTournamentAsync(int sponsorId, int tournamentId, decimal contractAmount)
     {
         if (!await _repo.ExistsAsync(sponsorId))
             throw new KeyNotFoundException("Sponsor not found");
@@ -87,6 +84,10 @@ public class SponsorService : ISponsorService
         };
 
         await _tsRepo.CreateAsync(relation);
+
+        var created = await _tsRepo.GetByIdsAsync(sponsorId, tournamentId);
+
+        return created!;
     }
 
     public async Task<IEnumerable<Tournament>> GetTournamentsBySponsorAsync(int sponsorId)
@@ -96,11 +97,20 @@ public class SponsorService : ISponsorService
 
         var relations = await _tsRepo.GetBySponsorIdAsync(sponsorId);
 
-        return relations.Select(x => x.Tournament);
+        return relations
+            .Where(x => x.Tournament != null)
+            .Select(x => x.Tournament!)
+            .ToList();
     }
 
     public async Task RemoveFromTournamentAsync(int sponsorId, int tournamentId)
     {
+        if (!await _repo.ExistsAsync(sponsorId))
+            throw new KeyNotFoundException("Sponsor not found");
+
+        if (!await _tournamentRepo.ExistsAsync(tournamentId))
+            throw new KeyNotFoundException("Tournament not found");
+
         var relation = await _tsRepo.GetByIdsAsync(sponsorId, tournamentId);
 
         if (relation == null)

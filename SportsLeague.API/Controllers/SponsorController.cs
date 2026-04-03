@@ -63,21 +63,24 @@ public class SponsorController : ControllerBase
         return NoContent();
     }
 
-
     // ── RELACIÓN N:M ──
 
     [HttpPost("{id}/tournaments")]
     public async Task<IActionResult> AssignToTournament(int id, TournamentSponsorRequestDTO dto)
     {
-        await _service.AssignToTournamentAsync(id, dto.TournamentId, dto.ContractAmount);
-        return Ok(new { message = "Sponsor assigned to tournament successfully" });
+        var relation = await _service.AssignToTournamentAsync(id, dto.TournamentId, dto.ContractAmount);
+
+        var result = _mapper.Map<TournamentSponsorResponseDTO>(relation);
+
+        return Ok(result);
     }
 
     [HttpGet("{id}/tournaments")]
     public async Task<IActionResult> GetTournaments(int id)
     {
-        var relations = await _service.GetTournamentsBySponsorAsync(id);
-        return Ok(_mapper.Map<IEnumerable<TournamentSponsorResponseDTO>>(relations));
+        var tournaments = await _service.GetTournamentsBySponsorAsync(id);
+
+        return Ok(_mapper.Map<IEnumerable<TournamentResponseDTO>>(tournaments));
     }
 
     [HttpDelete("{id}/tournaments/{tournamentId}")]

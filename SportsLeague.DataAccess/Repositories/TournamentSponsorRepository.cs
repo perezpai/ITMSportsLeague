@@ -14,9 +14,12 @@ public class TournamentSponsorRepository
 
     public async Task<TournamentSponsor?> GetByIdsAsync(int sponsorId, int tournamentId)
     {
-        return await _dbSet
+        return await _context.TournamentSponsors
+            .Include(ts => ts.Sponsor)
             .Include(ts => ts.Tournament)
-            .FirstOrDefaultAsync(ts => ts.SponsorId == sponsorId && ts.TournamentId == tournamentId);
+            .FirstOrDefaultAsync(ts =>
+                ts.SponsorId == sponsorId &&
+                ts.TournamentId == tournamentId);
     }
 
     public async Task<IEnumerable<TournamentSponsor>> GetBySponsorIdAsync(int sponsorId)

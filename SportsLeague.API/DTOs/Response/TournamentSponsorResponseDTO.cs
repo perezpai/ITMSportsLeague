@@ -1,9 +1,10 @@
-﻿using SportsLeague.Domain.Enums;
-
-namespace SportsLeague.API.DTOs.Response;
-
-public class TournamentSponsorResponseDTO
+﻿public class TournamentSponsorResponseDTO
 {
+    public int Id { get; set; }
+
+    public int SponsorId { get; set; }
+    public string SponsorName { get; set; } = string.Empty;
+
     public int TournamentId { get; set; }
     public string TournamentName { get; set; } = string.Empty;
     public string Season { get; set; } = string.Empty;

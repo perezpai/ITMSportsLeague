@@ -1,5 +1,7 @@
 ﻿using SportsLeague.Domain.Entities;
 
+namespace SportsLeague.Domain.Interfaces.Services;
+
 public interface ISponsorService
 {
     Task<IEnumerable<Sponsor>> GetAllAsync();
@@ -7,7 +9,10 @@ public interface ISponsorService
     Task<Sponsor> CreateAsync(Sponsor sponsor);
     Task UpdateAsync(int id, Sponsor sponsor);
     Task DeleteAsync(int id);
-    Task AssignToTournamentAsync(int sponsorId, int tournamentId, decimal contractAmount);
+
+    Task<TournamentSponsor> AssignToTournamentAsync(int sponsorId, int tournamentId, decimal contractAmount);
+
     Task<IEnumerable<Tournament>> GetTournamentsBySponsorAsync(int sponsorId);
+
     Task RemoveFromTournamentAsync(int sponsorId, int tournamentId);
 }
