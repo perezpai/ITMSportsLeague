@@ -29,6 +29,10 @@ builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IRefereeService, RefereeService>();
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<ISponsorService, SponsorService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
+
+// ── Repositories ──
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
 // ── Repos adicionales necesarios ──
 builder.Services.AddScoped<IGenericRepository<Tournament>, GenericRepository<Tournament>>();
