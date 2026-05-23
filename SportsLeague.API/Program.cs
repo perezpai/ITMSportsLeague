@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using SportsLeague.DataAccess.Context;
 using SportsLeague.DataAccess.Repositories;
+using SportsLeague.DataAccess.Seeders;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Helpers;
 using SportsLeague.Domain.Interfaces.Repositories;
 using SportsLeague.Domain.Interfaces.Services;
 using SportsLeague.Domain.Services;
+using SportsLeague.DataAccess.Seeders;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,3 +76,16 @@ builder.Services.AddScoped<ICardRepository, CardRepository>();
 // ── Services (agregar) ── 
 builder.Services.AddScoped<IMatchEventService, MatchEventService>();
 builder.Services.AddScoped<MatchValidationHelper>();
+  
+// ── Data Seeder ── 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider
+        .GetRequiredService<LeagueDbContext>();
+
+    await context.Database.MigrateAsync(); // Crea la BD + aplica migraciones 
+    await DataSeeder.SeedAsync(context);
+}
+
+// ── Services (agregar) ── 
+builder.Services.AddScoped<IStandingsService, StandingsService>();
