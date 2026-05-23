@@ -1,5 +1,4 @@
 ﻿using SportsLeague.Domain.Enums;
-using Sysusing SportsLeague.Domain.Enums;
 
 namespace SportsLeague.Domain.Entities;
 
