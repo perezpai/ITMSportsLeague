@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SportsLeague.API.DTOs.Request;
 using SportsLeague.API.DTOs.Response;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
+using SportsLeague.DataAccess.Identity;
 
 namespace SportsLeague.API.Controllers;
 
@@ -41,6 +43,7 @@ public class TeamController : ControllerBase
         return Ok(teamDto);
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPost]
     public async Task<ActionResult<TeamResponseDTO>> Create(TeamRequestDTO dto)
     {
@@ -63,6 +66,7 @@ public class TeamController : ControllerBase
     }
 
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, TeamRequestDTO dto)
     {
@@ -84,6 +88,7 @@ public class TeamController : ControllerBase
         }
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpDelete("{id}")]
 
     public async Task<ActionResult> Delete(int id)
