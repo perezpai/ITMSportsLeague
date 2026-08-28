@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SportsLeague.API.DTOs.Request;
 using SportsLeague.API.DTOs.Response;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
+using SportsLeague.DataAccess.Identity;
 
 namespace SportsLeague.API.Controllers;
 
@@ -38,6 +40,7 @@ public class SponsorController : ControllerBase
         return Ok(_mapper.Map<SponsorResponseDTO>(sponsor));
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPost]
     public async Task<IActionResult> Create(SponsorRequestDTO dto)
     {
@@ -47,6 +50,7 @@ public class SponsorController : ControllerBase
         return Ok(_mapper.Map<SponsorResponseDTO>(created));
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, SponsorRequestDTO dto)
     {
@@ -56,6 +60,7 @@ public class SponsorController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -65,6 +70,7 @@ public class SponsorController : ControllerBase
 
     // ── RELACIÓN N:M ──
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPost("{id}/tournaments")]
     public async Task<IActionResult> AssignToTournament(int id, TournamentSponsorRequestDTO dto)
     {
@@ -83,6 +89,7 @@ public class SponsorController : ControllerBase
         return Ok(_mapper.Map<IEnumerable<TournamentResponseDTO>>(tournaments));
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpDelete("{id}/tournaments/{tournamentId}")]
     public async Task<IActionResult> RemoveFromTournament(int id, int tournamentId)
     {

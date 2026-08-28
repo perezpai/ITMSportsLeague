@@ -4,6 +4,8 @@ using SportsLeague.API.DTOs.Request;
 using SportsLeague.API.DTOs.Response;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
+using SportsLeague.DataAccess.Identity;
 
 namespace SportsLeague.API.Controllers;
 
@@ -24,6 +26,7 @@ public class MatchLineupController : ControllerBase
     /// <summary>
     /// Agregar un jugador a la alineación del partido
     /// </summary>
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpPost]
     public async Task<ActionResult<MatchLineupDTO>> AddPlayerToLineup(
         int matchId, CreateMatchLineupDTO dto)
@@ -76,6 +79,7 @@ public class MatchLineupController : ControllerBase
     /// <summary>
     /// Eliminar un jugador de la alineación
     /// </summary>
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpDelete("{id}")]
     public async Task<ActionResult> RemovePlayerFromLineup(int matchId, int id)
     {

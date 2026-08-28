@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SportsLeague.API.DTOs.Request;
 using SportsLeague.API.DTOs.Response;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
+using SportsLeague.DataAccess.Identity;
 
 
 namespace SportsLeague.API.Controllers;
@@ -41,6 +43,7 @@ public class RefereeController : ControllerBase
         return Ok(_mapper.Map<RefereeResponseDTO>(referee));
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPost]
     public async Task<ActionResult<RefereeResponseDTO>> Create(RefereeRequestDTO dto)
     {
@@ -50,6 +53,7 @@ public class RefereeController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = responseDto.Id }, responseDto);
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPut("{id}")]
 
     public async Task<ActionResult> Update(int id, RefereeRequestDTO dto)
@@ -65,6 +69,7 @@ public class RefereeController : ControllerBase
             return NotFound(new { message = ex.Message });
         }
     }
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpDelete("{id}")]
 
     public async Task<ActionResult> Delete(int id)

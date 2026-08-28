@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SportsLeague.API.DTOs.Request;
 using SportsLeague.API.DTOs.Response;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
+using SportsLeague.DataAccess.Identity;
 
 namespace SportsLeague.API.Controllers;
 
@@ -46,6 +48,7 @@ public class MatchController : ControllerBase
         return Ok(_mapper.Map<MatchResponseDTO>(match));
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPost]
     public async Task<ActionResult<MatchResponseDTO>> Create(MatchRequestDTO dto)
     {
@@ -67,6 +70,7 @@ public class MatchController : ControllerBase
         }
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, MatchRequestDTO dto)
     {
@@ -86,6 +90,7 @@ public class MatchController : ControllerBase
         }
     }
 
+    [Authorize(Roles = AppRoles.ManagementRoles)]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
@@ -98,6 +103,7 @@ public class MatchController : ControllerBase
         catch (InvalidOperationException ex) { return Conflict(new { message = ex.Message }); }
     }
 
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpPatch("{id}/status")]
     public async Task<ActionResult> UpdateStatus(int id, UpdateMatchStatusDTO dto)
     {

@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using SportsLeague.DataAccess.Identity;
 using SportsLeague.Domain.Entities;
 
 namespace SportsLeague.DataAccess.Context;
 
-public class LeagueDbContext : DbContext
+// Hereda de IdentityDbContext para sumar las tablas de usuarios/roles (login, seguridad)
+// a la misma base de datos, sin afectar las tablas de negocio ya existentes.
+public class LeagueDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
 {
     public LeagueDbContext(DbContextOptions<LeagueDbContext> options)
         : base(options)
