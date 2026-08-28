@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SportsLeague.DataAccess.Context;
 using SportsLeague.Domain.Entities;
+using SportsLeague.Domain.Enums;
 using SportsLeague.Domain.Interfaces.Repositories;
 namespace SportsLeague.DataAccess.Repositories;
 
@@ -49,6 +50,19 @@ public class MatchRepository : GenericRepository<Match>, IMatchRepository
             .Include(m => m.Referee)
             .OrderBy(m => m.Matchday)
             .ThenBy(m => m.MatchDate)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Match>> GetUpcomingWithDetailsAsync(int count)
+    {
+        return await _dbSet
+            .Where(m => m.MatchDate >= DateTime.UtcNow && m.Status == MatchStatus.Scheduled)
+            .Include(m => m.Tournament)
+            .Include(m => m.HomeTeam)
+            .Include(m => m.AwayTeam)
+            .Include(m => m.Referee)
+            .OrderBy(m => m.MatchDate)
+            .Take(count)
             .ToListAsync();
     }
 }

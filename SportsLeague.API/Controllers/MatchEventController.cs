@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SportsLeague.API.DTOs.Request;
 using SportsLeague.API.DTOs.Response;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
+using SportsLeague.DataAccess.Identity;
 
 namespace SportsLeague.API.Controllers;
 
@@ -23,6 +25,7 @@ public class MatchEventController : ControllerBase
 
     // ═══ Result ═══ 
 
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpPost("result")]
     public async Task<ActionResult<MatchResultResponseDTO>> RegisterResult(
         int matchId, MatchResultRequestDTO dto)
@@ -52,6 +55,7 @@ public class MatchEventController : ControllerBase
 
     // ═══ Goals ═══ 
 
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpPost("goals")]
     public async Task<ActionResult<GoalResponseDTO>> RegisterGoal(
         int matchId, GoalRequestDTO dto)
@@ -79,6 +83,7 @@ public class MatchEventController : ControllerBase
         catch (KeyNotFoundException ex) { return NotFound(new { message = ex.Message }); }
     }
 
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpDelete("goals/{goalId}")]
     public async Task<ActionResult> DeleteGoal(int matchId, int goalId)
     {
@@ -88,6 +93,7 @@ public class MatchEventController : ControllerBase
 
     // ═══ Cards ═══ 
 
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpPost("cards")]
     public async Task<ActionResult<CardResponseDTO>> RegisterCard(
         int matchId, CardRequestDTO dto)
@@ -115,6 +121,7 @@ public class MatchEventController : ControllerBase
         catch (KeyNotFoundException ex) { return NotFound(new { message = ex.Message }); }
     }
 
+    [Authorize(Roles = AppRoles.MatchOperationRoles)]
     [HttpDelete("cards/{cardId}")]
     public async Task<ActionResult> DeleteCard(int matchId, int cardId)
     {
