@@ -1,0 +1,47 @@
+Using project 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.DataAccess\SportsLeague.DataAccess.csproj'.
+Using startup project 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj'.
+Writing 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.DataAccess\obj\SportsLeague.DataAccess.csproj.EntityFrameworkCore.targets'...
+dotnet msbuild /target:GetEFProjectMetadata /property:EFProjectMetadataFile=C:\Users\Administrador\AppData\Local\Temp\tmphriund.tmp /verbosity:quiet /nologo C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.DataAccess\SportsLeague.DataAccess.csproj
+Writing 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\obj\SportsLeague.API.csproj.EntityFrameworkCore.targets'...
+dotnet msbuild /target:GetEFProjectMetadata /property:EFProjectMetadataFile=C:\Users\Administrador\AppData\Local\Temp\tmpxslipv.tmp /verbosity:quiet /nologo C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj
+Build started...
+dotnet build C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj /verbosity:quiet /nologo /p:PublishAot=false
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "AutoMapper" 12.0.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "Microsoft.OpenApi" 2.4.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "AutoMapper" 12.0.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "Microsoft.OpenApi" 2.4.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc
+
+Compilación correcta.
+
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "AutoMapper" 12.0.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "Microsoft.OpenApi" 2.4.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "AutoMapper" 12.0.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj : warning NU1903: El paquete "Microsoft.OpenApi" 2.4.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc
+    4 Advertencia(s)
+    0 Errores
+
+Tiempo transcurrido 00:00:08.20
+Build succeeded.
+dotnet exec --depsfile C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\bin\Debug\net10.0\SportsLeague.API.deps.json --additionalprobingpath C:\Users\Administrador\.nuget\packages --additionalprobingpath "C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages" --runtimeconfig C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\bin\Debug\net10.0\SportsLeague.API.runtimeconfig.json C:\Users\Administrador\.dotnet\tools\.store\dotnet-ef\8.0.30\dotnet-ef\8.0.30\tools\net8.0\any\tools\netcoreapp2.0\any\ef.dll migrations add AddIdentityTables --assembly C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\bin\Debug\net10.0\SportsLeague.DataAccess.dll --project C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.DataAccess\SportsLeague.DataAccess.csproj --startup-assembly C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\bin\Debug\net10.0\SportsLeague.API.dll --startup-project C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\SportsLeague.API.csproj --project-dir C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.DataAccess\ --root-namespace SportsLeague.DataAccess --language C# --framework net10.0 --nullable --working-dir C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.DataAccess --verbose
+Using assembly 'SportsLeague.DataAccess'.
+Using startup assembly 'SportsLeague.API'.
+Using application base 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\bin\Debug\net10.0'.
+Using working directory 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API'.
+Using root namespace 'SportsLeague.DataAccess'.
+Using project directory 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.DataAccess\'.
+Remaining arguments: .
+Microsoft.EntityFrameworkCore.Design.OperationException: Could not load assembly 'SportsLeague.DataAccess'. Ensure it is referenced by the startup project 'SportsLeague.API'.
+ ---> System.IO.FileLoadException: Could not load file or assembly 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\bin\Debug\net10.0\SportsLeague.DataAccess.dll'. Una directiva de Control de aplicaciones bloqueó este archivo. (0x800711C7)
+File name: 'C:\Users\Administrador\Desktop\ITMSportsLeague\SportsLeague.API\bin\Debug\net10.0\SportsLeague.DataAccess.dll'
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, StackCrawlMark& stackMark, AssemblyLoadContext assemblyLoadContext, RuntimeAssembly requestingAssembly, Boolean throwOnFileNotFound)
+   at System.Reflection.Assembly.Load(AssemblyName assemblyRef)
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.<get_Assembly>g__Create|15_0()
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.<get_Assembly>g__Create|15_0()
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.get_Assembly()
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.get_MigrationsOperations()
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.AddMigrationImpl(String name, String outputDir, String contextType, String namespace)
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.AddMigration.<>c__DisplayClass0_0.<.ctor>b__0()
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.OperationBase.<>c__DisplayClass3_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.OperationBase.Execute(Action action)
+Could not load assembly 'SportsLeague.DataAccess'. Ensure it is referenced by the startup project 'SportsLeague.API'.
